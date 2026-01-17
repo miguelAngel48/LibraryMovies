@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Netflix</title>
+    <link rel="stylesheet" th:href="@{/css/netflix.css
+    }">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <a th:href="@{/menu}"> <span class="logo">NETFLIX</span></a>
+
+            <div class="user-menu">
+                <span class="username" th:text="${userName}">User</span>
+                <div class="dropdown">
+                    <a href="#">Perfil</a>
+                    <a href="#">Mi lista</a>
+                    <a href="#">Cerrar sesión</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-center">
+            <form th:action="@{/menu}" method="post">
+                <div class="search-wrapper">
+                    <input type="text" id="search" name="search" autocomplete="off">
+                    <ul id="suggestions"></ul>
+                </div>
+            </form>
+
+        </div>
+
+
+        <div class="nav-right">
+            <a href="/login">Login</a>
+            <a href="/register" class="register">Register</a>
+        </div>
+    </nav>
+
+    <main class="content">
+        <ul class="movie-list">
+            <li th:each="movie : ${movies}" th:if="${!movies.isEmpty()}">
+                [[${movie.title}]]
+            </li>
+        </ul>
+    </main>
+    <script th:src="@{/js/netflix.js}"></script>
+</body>
+
+</html>
