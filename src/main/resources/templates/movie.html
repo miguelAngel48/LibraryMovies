@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Netflix</title>
     <link rel="stylesheet" th:href="@{/css/netflix.css}">
-   
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"
         integrity="sha512-wC/cunGGDjXSl9OHUH0RuqSyW4YNLlsPwhcLxwWW1CR4OeC2E1xpcdZz2DeQkEmums41laI+eGMw95IJ15SS3g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
@@ -14,46 +14,52 @@
 
 <body>
 
-<nav class="navbar">
-    <div class="nav-left">
-        <a th:href="@{/menu}"> <span class="logo">NETFLIX</span></a>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a th:href="@{/}"> <span class="logo">NETFLIX</span></a>
 
-        <div class="user-menu">
-            <span class="username" th:text="${userName}">User</span>
-            <div class="dropdown">
-                <a href="#">Perfil</a>
-                <a href="#">Mi lista</a>
-                <a href="#">Cerrar sesión</a>
+            <div class="user-menu">
+                <span class="username" th:text="${userName}">User</span>
+                <div class="dropdown">
+                    <a href="#">Perfil</a>
+                    <a href="#">Mi lista</a>
+                    <a href="#">Cerrar sesión</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="nav-center">
-            <form th:action="@{/menu}" method="post">
+        <div class="nav-center">
+            <form th:action="@{/menu}" id="form" method="post">
                 <div class="search-wrapper">
                     <input type="text" id="search" name="search" autocomplete="off">
                     <ul id="suggestions"></ul>
                 </div>
+                <select name="type" id="searchType">
+                    <option value="PERSON">Actor</option>
+                    <option value="MOVIE">Movie</option>
+                    <option value="GENRE">Genre</option>
+                </select>
             </form>
         </div>
 
 
-    <div class="nav-right">
-        <a href="/login">Login</a>
-        <a href="/register" class="register">Register</a>
-    </div>
-</nav>
+        <div class="nav-right">
+            <a href="/login">Login</a>
+            <a href="/register" class="register">Register</a>
+        </div>
+    </nav>
 
-<main class="content">
-    <div th:if="${movie != null}">
-        <h1 th:text="${movie.title}" id="title"></h1>
-        <img id="poster" data-tilt style="width:300px; display:none;">
-    </div>
+    <main class="content">
+        <ul class="movie-list">
+            <li th:each="movie : ${movies}" th:if="${!movies.isEmpty()}">
+                <h1 th:text="${movie.title}" class="title"></h1>
+                <img class="poster" data-tilt style="width:300px; display:none; z-index: -1;">
+            </li>
+        </ul>
 
-    </ul>
-</main>
-  <script th:src="@{/js/netflix.js}"></script>
-  <script th:src="@{/js/image.js}"></script>
+    </main>
+    <script th:src="@{/js/netflix.js}"></script>
+    <script th:src="@{/js/image.js}"></script>
 </body>
 
 </html>

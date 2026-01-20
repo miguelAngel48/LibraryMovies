@@ -3,9 +3,8 @@ package com.esLiceu.Movie.models.entitys;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Movie {
@@ -20,6 +19,50 @@ public class Movie {
     LocalDate releaseDate;
     Long revenue;
     Integer runtime;
+    String movie_status;
+    String tagline;
+    BigDecimal voteAverage;
+    Integer voteCount;
+    @OneToMany(mappedBy = "movie")
+    private List<MovieCast> cast;
+
+    public List<MovieGenre> getGenres() {
+        return movieGenres;
+    }
+
+    public void setGenres(List<MovieGenre> genres) {
+        this.movieGenres = genres;
+    }
+
+    @OneToMany(mappedBy = "movie")
+    private List<MovieGenre> movieGenres;
+    @OneToMany(mappedBy = "movie")
+    private List<MovieCrew> crew;
+    public BigDecimal getVoteAverage() {
+        return voteAverage;
+    }
+
+    public void setVoteAverage(BigDecimal voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
+    public List<MovieCast> getCast() {
+        return cast;
+    }
+
+    public void setCast(List<MovieCast> cast) {
+        this.cast = cast;
+    }
+
+    public List<MovieCrew> getCrew() {
+        return crew;
+    }
+
+    public void setCrew(List<MovieCrew> crew) {
+        this.crew = crew;
+    }
+
+
 
     public Integer getMovieId() {
         return movieId;
@@ -117,7 +160,5 @@ public class Movie {
         this.voteCount = voteCount;
     }
 
-    String movie_status;
-    String tagline;
-    Integer voteCount;
+
 }

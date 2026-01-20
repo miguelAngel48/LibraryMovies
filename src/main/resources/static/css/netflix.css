@@ -1,7 +1,6 @@
-
 .search-wrapper {
-    position: relative;   
-    width: 280px;         
+    position: relative;
+    width: 280px;
 }
 
 .search-wrapper input {
@@ -11,9 +10,9 @@
 #suggestions {
     display: none;
     position: absolute;
-    top: 100%;            
+    top: 100%;
     left: 0;
-    width: 100%;          
+    width: 100%;
     border: 1px solid #ccc;
     list-style: none;
     padding: 0;
@@ -44,6 +43,10 @@ body {
 
 
 .navbar {
+    z-index: 1000;
+    position: fixed;
+    width: 100%;
+    top: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -109,7 +112,7 @@ body {
 }
 
 .nav-right a {
-    margin-left: 15px;
+    margin: 0 10px;
     text-decoration: none;
     color: white;
     font-size: 14px;
@@ -119,10 +122,12 @@ body {
     background-color: #e50914;
     padding: 8px 14px;
     border-radius: 4px;
+    margin-right: 45px;
 }
 
 
 .content {
+    margin-top: 5rem;
     padding: 30px;
 }
 
@@ -133,4 +138,8 @@ body {
 .movie-list li {
     padding: 10px 0;
     border-bottom: 1px solid #333;
+}
+
+a {
+    text-decoration: none;
 }

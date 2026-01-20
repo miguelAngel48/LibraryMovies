@@ -28,20 +28,17 @@ public class MovieController {
         return "menu";
     }
     @PostMapping("/menu")
-    public String menuSearch(Model model, @RequestParam String search) {
+    public String menuSearch(Model model, @RequestParam String search, @RequestParam MoviesStock.SearchType type) {
 
-        String normalized = search.trim();
-
-        Movie movie = moviesStock.findByTitle(normalized);
-        List<Movie> movies = moviesStock.findAllMovies();
-        model.addAttribute("movies",movies);
-        if (movie == null) {
+        List<Movie> movies = moviesStock.globalFinder(search,type);
+        model.addAttribute("moviesList",movies);
+        if (movies.isEmpty()) {
             model.addAttribute("error", "Película no encontrada");
-            model.addAttribute("movies", moviesStock.findAllMovies());
+            model.addAttribute("moviesList", movies);
             return "menu";
         }
 
-        model.addAttribute("movie", movie);
+        model.addAttribute("movies", movies);
         return "movie";
     }
 

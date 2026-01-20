@@ -10,6 +10,7 @@ public class Person {
 @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer personId;
+    String personName;
 
     public String getPersonName() {
         return personName;
@@ -27,5 +28,5 @@ public class Person {
         this.personId = personId;
     }
 
-    String personName;
+
 }
