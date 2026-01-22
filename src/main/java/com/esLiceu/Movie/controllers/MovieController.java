@@ -1,5 +1,6 @@
 package com.esLiceu.Movie.controllers;
 
+import com.esLiceu.Movie.models.DTO.DataMovieManipulate;
 import com.esLiceu.Movie.models.entitys.Movie;
 import com.esLiceu.Movie.repository.MovieRepo;
 import com.esLiceu.Movie.services.MoviesStock;
@@ -28,13 +29,15 @@ public class MovieController {
         return "menu";
     }
     @PostMapping("/menu")
-    public String menuSearch(Model model, @RequestParam String search, @RequestParam MoviesStock.SearchType type) {
+    public String menuSearch(Model model, @RequestParam String search,@RequestParam(required = false) Integer movieId, @RequestParam MoviesStock.SearchType type) {
 
-        List<Movie> movies = moviesStock.globalFinder(search,type);
+        System.out.println("movieId = " + movieId);
+        System.out.println("search = " + search);
+        List<Movie> movies = moviesStock.globalFinder(search,movieId,type);
         model.addAttribute("moviesList",movies);
         if (movies.isEmpty()) {
             model.addAttribute("error", "Película no encontrada");
-            model.addAttribute("moviesList", movies);
+//            model.addAttribute("moviesList", movies);
             return "menu";
         }
 
@@ -44,7 +47,7 @@ public class MovieController {
 
     @GetMapping("/api/autocomplete")
     @ResponseBody
-    public List<String> autocomplete(@RequestParam String query){
+    public List<DataMovieManipulate> autocomplete(@RequestParam String query){
         return moviesStock.findTop5Titles(query);
     }
 

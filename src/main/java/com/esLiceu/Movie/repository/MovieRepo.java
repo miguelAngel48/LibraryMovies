@@ -9,11 +9,16 @@ import java.util.List;
 
 @Repository
 public interface MovieRepo extends JpaRepository<Movie,Integer> {
-    Movie findByTitle(String title);
+    Movie findByMovieId(Integer movieId);
+
     List<Movie> findTop5ByTitleContainingIgnoreCase(String q);
 
-    List<Movie> findDistinctByCastPersonPersonName(String actor);
+    List<Movie> findDistinctByCastPersonPersonId(Integer actor);
 
     List<Movie> findDistinctByMovieGenresGenreGenreNameIgnoreCase(String genreName);
+
+    List<Movie> findDistinctByCastCharacterName(String query);
+
+    List<Movie> findDistinctByCrewPersonPersonNameContainingIgnoreCaseAndCrewJob(String query, String director);
 
 }

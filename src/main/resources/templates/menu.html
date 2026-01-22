@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Netflix</title>
-    <link rel="stylesheet" th:href="@{/css/netflix.css
-    }">
+    <link rel="stylesheet" th:href="@{/css/netflix.css}">
+
+    <!--    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>-->
+    <!--    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>-->
 </head>
 
 <body>
@@ -16,7 +18,7 @@
             <a th:href="@{/}"> <span class="logo">NETFLIX</span></a>
 
             <div class="user-menu">
-                <span class="username" th:text="${userName}">User</span>
+                <span class="username">User</span>
                 <div class="dropdown">
                     <a href="#">Perfil</a>
                     <a href="#">Mi lista</a>
@@ -29,11 +31,14 @@
             <form th:action="@{/menu}" id="form" method="post">
                 <div class="search-wrapper">
                     <input type="text" id="search" name="search" autocomplete="off">
+                    <input type="hidden" name="movieId" id="movieId">
                     <ul id="suggestions"></ul>
                 </div>
                 <select name="type" id="searchType">
                     <option value="PERSON">Actor</option>
                     <option value="MOVIE">Movie</option>
+                    <option value="DIRECTOR">Director</option>
+                    <option value="CHARACTER">Character</option>
                     <option value="GENRE">Genre</option>
                 </select>
             </form>
