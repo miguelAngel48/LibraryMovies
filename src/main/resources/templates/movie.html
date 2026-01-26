@@ -18,13 +18,9 @@
         <div class="nav-left">
             <a th:href="@{/}"> <span class="logo">NETFLIX</span></a>
 
-            <div class="user-menu">
-                <span class="username">User</span>
-                <div class="dropdown">
-                    <a href="#">Perfil</a>
-                    <a href="#">Mi lista</a>
-                    <a href="#">Cerrar sesión</a>
-                </div>
+            <div class="edit-Movie">
+                <a th:href="@{/manipulateMovie}">Edit movies</a>
+            </div>
             </div>
         </div>
 
@@ -36,8 +32,8 @@
                     <ul id="suggestions"></ul>
                 </div>
                 <select name="type" id="searchType">
-                    <option value="PERSON">Actor</option>
                     <option value="MOVIE">Movie</option>
+                    <option value="PERSON">Actor</option>
                     <option value="DIRECTOR">Director</option>
                     <option value="CHARACTER">Character</option>
                     <option value="GENRE">Genre</option>
@@ -54,11 +50,89 @@
 
     <main class="content">
         <ul class="movie-list">
+
             <li th:each="movie : ${movies}" th:if="${!movies.isEmpty()}">
-                <h1 th:text="${movie.title}" class="title"></h1>
+
+                <!-- Title -->
+                <h1 class="title" th:text="${movie.title}"></h1>
+
+                <!-- Image (UNCHANGED as requested) -->
                 <img class="poster" data-tilt style="width:300px; display:none; z-index: -1;">
+
+                <!-- Tagline -->
+                <p th:if="${movie.tagline != null}">
+                    <em th:text="${movie.tagline}"></em>
+                </p>
+
+                <!-- Overview -->
+                <p>
+                    <strong>Overview:</strong>
+                    <span th:text="${movie.overview}"></span>
+                </p>
+
+                <!-- Basic info -->
+                <p><strong>Release date:</strong> <span th:text="${movie.releaseDate}"></span></p>
+                <p><strong>Runtime:</strong> <span th:text="${movie.runtime}"></span> min</p>
+                <p><strong>Status:</strong> <span th:text="${movie.movie_status}"></span></p>
+
+                <!-- Financials -->
+                <p><strong>Budget:</strong> $<span th:text="${movie.budget}"></span></p>
+                <p><strong>Revenue:</strong> $<span th:text="${movie.revenue}"></span></p>
+
+                <!-- Popularity & votes -->
+                <p><strong>Popularity:</strong> <span th:text="${movie.popularity}"></span></p>
+                <p>
+                    <strong>Rating:</strong>
+                    <span th:text="${movie.voteAverage}"></span>
+                    (<span th:text="${movie.voteCount}"></span> votes)
+                </p>
+
+                <!-- Homepage -->
+                <p th:if="${movie.homepage != null}">
+                    <strong>Homepage:</strong>
+                    <a th:href="${movie.homepage}" th:text="${movie.homepage}" target="_blank"></a>
+                </p>
+
+                <!-- Genres -->
+                <p>
+                    <strong>Genres:</strong>
+                    <span th:each="mg, iter : ${movie.genres}">
+                <span th:text="${mg.genre.genreName}"></span>
+                <span th:if="${!iter.last}">, </span>
+            </span>
+                </p>
+
+                <!-- Cast -->
+                <div>
+                    <strong>Cast:</strong>
+                    <ul>
+                        <li th:each="cast : ${movie.cast}">
+                            <span th:text="${cast.person.personName}"></span>
+                            —
+                            <em th:text="${cast.characterName}"></em>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Crew -->
+                <div>
+                    <strong>Crew:</strong>
+                    <ul>
+                        <li th:each="crew : ${movie.crew}">
+                            <span th:text="${crew.person.personName}"></span>
+                            (
+                            <span th:text="${crew.department.departmentName}"></span>
+                            –
+                            <span th:text="${crew.job}"></span>
+                            )
+                        </li>
+                    </ul>
+                </div>
+
             </li>
+
         </ul>
+
 
     </main>
     <script th:src="@{/js/netflix.js}"></script>

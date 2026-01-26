@@ -16,10 +16,7 @@ import java.util.List;
 public class MoviesStock {
     @Autowired
     MovieRepo movieRepo;
-    @Autowired
-    DepartmentRepo departmentRepo;
-    @Autowired
-    GenreRepo genreRepo;
+
     public enum SearchType {
         PERSON,
         MOVIE,

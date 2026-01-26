@@ -18,4 +18,28 @@ public class MovieGenre {
     @MapsId("genreId")
     @JoinColumn(name = "genre_id")
     private Genre genre;
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public MovieGenreId getId() {
+        return id;
+    }
+
+    public void setId(MovieGenreId id) {
+        this.id = id;
+    }
 }

@@ -13,13 +13,8 @@
         <div class="nav-left">
             <a th:href="@{/}"> <span class="logo">NETFLIX</span></a>
 
-            <div class="user-menu">
-                <span class="username">User</span>
-                <div class="dropdown">
-                    <a href="#">Perfil</a>
-                    <a href="#">Mi lista</a>
-                    <a href="#">Cerrar sesión</a>
-                </div>
+            <div class="edit-Movie">
+                <a th:href="@{/manipulateMovie}">Edit movies</a>
             </div>
         </div>
 
@@ -45,6 +40,36 @@
             <a href="/register" class="register">Register</a>
         </div>
     </nav>
+
+    <main class="content">
+        <form th:action="@{/movies/save}" th:object="${movie}" method="post">
+
+            <input type="hidden" th:field="*{movieId}" />
+
+            <label>Title</label>
+            <input type="text" th:field="*{title}" />
+
+            <label>Overview</label>
+            <textarea th:field="*{overview}"></textarea>
+
+            <label>Release date</label>
+            <input type="date" th:field="*{releaseDate}" />
+
+            <label>Runtime</label>
+            <input type="number" th:field="*{runtime}" />
+
+            <label>Status</label>
+            <input type="text" th:field="*{movie_status}" />
+
+            <label>Budget</label>
+            <input type="number" th:field="*{budget}" />
+
+            <label>Revenue</label>
+            <input type="number" th:field="*{revenue}" />
+            <input type="submit" value="Save">
+        </form>
+    </main>
+
 </body>
 
 </html>

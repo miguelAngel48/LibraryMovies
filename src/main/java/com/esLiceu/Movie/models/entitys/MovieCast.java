@@ -28,4 +28,52 @@ public class MovieCast {
 
     @Column(name = "cast_order")
     private Integer castOrder;
+
+    public MovieCastId getId() {
+        return id;
+    }
+
+    public void setId(MovieCastId id) {
+        this.id = id;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getCharacterName() {
+        return characterName;
+    }
+
+    public void setCharacterName(String characterName) {
+        this.characterName = characterName;
+    }
+
+    public Integer getCastOrder() {
+        return castOrder;
+    }
+
+    public void setCastOrder(Integer castOrder) {
+        this.castOrder = castOrder;
+    }
 }

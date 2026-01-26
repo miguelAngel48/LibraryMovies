@@ -17,13 +17,9 @@
         <div class="nav-left">
             <a th:href="@{/}"> <span class="logo">NETFLIX</span></a>
 
-            <div class="user-menu">
-                <span class="username">User</span>
-                <div class="dropdown">
-                    <a href="#">Perfil</a>
-                    <a href="#">Mi lista</a>
-                    <a href="#">Cerrar sesión</a>
-                </div>
+            <div class="edit-Movie">
+                <a th:href="@{/manipulateMovie}">Edit movies</a>
+
             </div>
         </div>
 
@@ -35,8 +31,8 @@
                     <ul id="suggestions"></ul>
                 </div>
                 <select name="type" id="searchType">
-                    <option value="PERSON">Actor</option>
                     <option value="MOVIE">Movie</option>
+                    <option value="PERSON">Actor</option>
                     <option value="DIRECTOR">Director</option>
                     <option value="CHARACTER">Character</option>
                     <option value="GENRE">Genre</option>
