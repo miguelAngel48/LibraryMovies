@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/netflix.css}">
+    <title>Metflix</title>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <a th:href="@{/}">
+                <span class="logo">METFLIX</span>
+            </a>
+
+            <div class="edit-Movie">
+                <a th:href="@{/manipulateMovie}">Edit movies</a>
+            </div>
+        </div>
+
+        <div class="nav-center">
+            <form th:action="@{/menu}" id="form" method="post">
+                <div class="search-wrapper">
+                    <input type="text" id="search" name="search" autocomplete="off">
+                    <input type="hidden" id="searchType" name="type" value="MOVIE">
+                    <input type="hidden" id="typeForm" value="formMovie">
+                </div>
+            </form>
+        </div>
+
+        <div class="nav-right">
+            <a href="/login">Login</a>
+            <a href="/register" class="register">Register</a>
+        </div>
+    </nav>
+
+
+
+
+
+
+    <form th:action="@{/crew/save}" method="post" class="formDataBase">
+
+        <h1 th:text="'Crew of ' + ${movie.title}"></h1>
+
+        <input type="hidden" name="movieId" th:value="${movie.movieId}" />
+
+
+        <input type="text" class="person-search" placeholder="Search person...">
+        <input type="hidden" name="personId">
+
+
+        <select name="departmentId">
+            <option th:each="d : ${departments}" th:value="${d.departmentId}" th:text="${d.departmentName}">
+            </option>
+        </select>
+
+
+        <input name="job" placeholder="Job (Director, Writer, Editor...)">
+
+        <button type="submit">Add Crew</button>
+    </form>
+
+
+
+    <table class="tableData">
+
+        <tr>
+            <th>Person</th>
+            <th>Department</th>
+            <th>Job</th>
+            <th></th>
+        </tr>
+
+        <tr th:each="c : ${crewList}">
+            <td th:text="${c.person.personName}"></td>
+            <td th:text="${c.department.departmentName}"></td>
+            <td th:text="${c.job}"></td>
+
+            <td>
+                <form th:action="@{/crew/delete}" method="post">
+
+
+                    <input type="hidden" name="movieId" th:value="${movie.movieId}">
+                    <input type="hidden" name="personId" th:value="${c.person.personId}">
+                    <input type="hidden" name="departmentId" th:value="${c.department.departmentId}">
+
+                    <button>Delete</button>
+                </form>
+            </td>
+        </tr>
+
+    </table>
+
+
+    <script th:src="@{/js/personalMovie.js}"></script>
+
+</body>
+
+</html>

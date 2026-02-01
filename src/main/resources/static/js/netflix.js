@@ -3,6 +3,7 @@ const search = document.querySelector('#search')
 const poster = document.querySelectorAll(".poster")
 const form = document.getElementById('form')
 const idMovie = document.getElementById('movieId')
+const typeFormat = document.getElementById('searchType')
 const TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYzc1ZmU4MmVjMWI4NWZmZmYwMWE5MTM3YmY5NTZmMSIsIm5iZiI6MTc2ODY3NzI5OS42MjYsInN1YiI6IjY5NmJkZmIzOWUwMjk1YzgwODhmYzE3NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.S1XDjWTQ4-YLpnUfP_5AfmxsXLy6HDY4gi2IgrA2ejQ";
 
 
@@ -13,7 +14,7 @@ search.addEventListener('input', async () => {
 
     if (q.length < 2) return;
 
-    const res = await fetch(`/api/autocomplete?query=${q}`);
+    const res = await fetch(`/api/autocomplete?query=${q}&type=${typeFormat.value}`);
 
     if (!res.ok) {
         console.error("Error backend:", res.status);
@@ -23,13 +24,12 @@ search.addEventListener('input', async () => {
     const resultString = JSON.stringify(data);
     const movie = JSON.parse(resultString);
     suggestions.style.display = "block";
-
     movie.forEach(movie => {
-        console.log(movie.title, movie.id)
+
         const li = document.createElement("li")
-        li.textContent = movie.title;
+        li.textContent = movie.label;
         li.onclick = () => {
-            search.value = movie.title;
+            search.value = movie.label;
             suggestions.innerHTML = "";
             idMovie.value = movie.id
 
@@ -39,10 +39,22 @@ search.addEventListener('input', async () => {
         suggestions.appendChild(li);
 
     });
+
     search.addEventListener("blur", () => {
         setTimeout(() => {
             suggestions.style.display = "none";
         }, 150);
+    });
+    search.addEventListener("keydown", (e) => {
+
+        if (e.key === "Enter") {
+            e.preventDefault();
+
+            const first = suggestions.querySelector("li");
+
+            if (first) first.click();
+        }
+
     });
 
 })

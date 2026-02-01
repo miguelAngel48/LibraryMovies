@@ -5,7 +5,11 @@ import com.esLiceu.Movie.models.entitys.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface DepartmentRepo extends JpaRepository<Department,Integer> {
-//Movie findMoviesByActor(String actor);
+    List<Department> findTop5ByDepartmentNameContainingIgnoreCase(String query);
+
+    Department findByDepartmentId(Integer id);
 }

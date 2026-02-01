@@ -1,9 +1,11 @@
 package com.esLiceu.Movie.models.entitys;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,15 +18,84 @@ public class Movie {
     String homepage;
     String overview;
     BigDecimal popularity;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate releaseDate;
     Long revenue;
     Integer runtime;
-    String movie_status;
+    String movieStatus;
     String tagline;
     BigDecimal voteAverage;
     Integer voteCount;
-    @OneToMany(mappedBy = "movie")
-    private List<MovieCast> cast;
+    @OneToMany(
+            mappedBy = "movie",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<MovieCompany> movieCompanies;
+    @OneToMany(mappedBy = "movie",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<MovieCast> cast = new ArrayList<>();
+
+    @OneToMany(mappedBy = "movie",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<MovieKeyword> Keywords = new ArrayList<>();
+
+    @OneToMany(mappedBy = "movie",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<MovieLanguage> languages = new ArrayList<>();
+
+    @OneToMany(mappedBy = "movie",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<ProductionCountry> productionCountries = new ArrayList<>();
+
+    public List<ProductionCountry> getProductionCountries() {
+        return productionCountries;
+    }
+
+    public void setProductionCountries(List<ProductionCountry> productionCountries) {
+        this.productionCountries = productionCountries;
+    }
+
+    public List<MovieLanguage> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(List<MovieLanguage> languages) {
+        this.languages = languages;
+    }
+
+    public List<MovieGenre> getMovieGenres() {
+        return movieGenres;
+    }
+
+    public void setMovieGenres(List<MovieGenre> movieGenres) {
+        this.movieGenres = movieGenres;
+    }
+
+    public List<MovieKeyword> getKeywords() {
+        return Keywords;
+    }
+
+    public void setKeywords(List<MovieKeyword> keywords) {
+        Keywords = keywords;
+    }
+
+    public List<MovieCompany> getMovieCompanies() {
+        return movieCompanies;
+    }
+
+    public void setMovieCompanies(List<MovieCompany> movieCompanies) {
+        this.movieCompanies = movieCompanies;
+    }
+
 
     public List<MovieGenre> getGenres() {
         return movieGenres;
@@ -34,10 +105,17 @@ public class Movie {
         this.movieGenres = genres;
     }
 
-    @OneToMany(mappedBy = "movie")
-    private List<MovieGenre> movieGenres;
-    @OneToMany(mappedBy = "movie")
-    private List<MovieCrew> crew;
+    @OneToMany(mappedBy = "movie",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<MovieGenre> movieGenres = new ArrayList<>();
+    @OneToMany(mappedBy = "movie",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<MovieCrew> crew = new ArrayList<>();
+
     public BigDecimal getVoteAverage() {
         return voteAverage;
     }
@@ -61,7 +139,6 @@ public class Movie {
     public void setCrew(List<MovieCrew> crew) {
         this.crew = crew;
     }
-
 
 
     public Integer getMovieId() {
@@ -136,12 +213,12 @@ public class Movie {
         this.runtime = runtime;
     }
 
-    public String getMovie_status() {
-        return movie_status;
+    public String getMovieStatus() {
+        return movieStatus;
     }
 
-    public void setMovie_status(String movie_status) {
-        this.movie_status = movie_status;
+    public void setMovieStatus(String movieStatus) {
+        this.movieStatus = movieStatus;
     }
 
     public String getTagline() {

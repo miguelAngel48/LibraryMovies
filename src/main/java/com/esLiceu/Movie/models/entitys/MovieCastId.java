@@ -8,6 +8,22 @@ import java.io.Serializable;
 
 @Embeddable
 public class MovieCastId implements Serializable {
+    public Integer getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(Integer movieId) {
+        this.movieId = movieId;
+    }
+
+    public Integer getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Integer personId) {
+        this.personId = personId;
+    }
+
     @Column(name = "movie_id")
     Integer movieId;
 
@@ -30,4 +46,6 @@ public class MovieCastId implements Serializable {
     public int hashCode() {
         return java.util.Objects.hash(movieId, personId);
     }
+
+
 }

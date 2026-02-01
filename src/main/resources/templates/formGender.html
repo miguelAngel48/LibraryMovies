@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/netflix.css}">
+    <title>Metflix</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a th:href="@{/}"> <span class="logo">METFLIX</span></a>
+
+            <div class="edit-Movie">
+                <a th:href="@{/manipulateMovie}">Edit movies</a>
+            </div>
+        </div>
+
+        <div class="nav-center">
+            <form th:action="@{/menu}" id="form" method="post">
+                <div class="search-wrapper">
+                    <input type="text" id="search" name="search" autocomplete="off">
+                    <ul id="suggestions"></ul>
+                    <input type="hidden" id="searchType" name="type" value="GENDER">
+                    <input type="hidden" id="typeForm" value="formGender">
+                </div>
+
+            </form>
+        </div>
+
+
+        <div class="nav-right">
+            <a href="/login">Login</a>
+            <a href="/register" class="register">Register</a>
+        </div>
+    </nav>
+
+    <form th:action="@{/gender/save}" th:object="${gender}" method="post" class="formDataBase">
+
+        <h1>Gender</h1>
+
+        <input type="hidden" th:field="*{genderId}" class="formsId" />
+
+        <label>Name</label>
+        <input type="text" th:field="*{gender}" />
+
+        <input type="submit" th:value="${gender.genderId} != null ? 'Update Gender' : 'Create Gender'">
+    </form>
+
+
+
+    <form th:if="${gender.genderId != null}" th:action="@{/gender/delete}" method="post" class="formDataBase">
+
+        <input type="hidden" name="genderId" th:value="${gender.genderId}" />
+
+        <button type="submit" onclick="return confirm('Delete this gender?')">
+            Delete
+        </button>
+    </form>
+    <script th:src="@{/js/movies.js}"></script>
+</body>
+
+</html>

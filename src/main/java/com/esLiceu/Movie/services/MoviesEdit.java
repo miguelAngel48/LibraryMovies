@@ -12,8 +12,17 @@ public class MoviesEdit {
 
 
     public void saveMovie(Movie movie) {
+        movie.getCast().forEach(c -> c.setMovie(movie));
+        movie.getCrew().forEach(c -> c.setMovie(movie));
          movieRepo.save(movie);
     }
 
+    public void deleteMovie(Integer movieId) {
+        movieRepo.deleteById(movieId);
+    }
+
+    public Movie findByIdMovie(Integer id) {
+        return movieRepo.findByMovieId(id);
+    }
 
 }

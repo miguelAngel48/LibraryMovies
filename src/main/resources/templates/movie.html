@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Netflix</title>
+    <title>Metflix</title>
     <link rel="stylesheet" th:href="@{/css/netflix.css}">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"
@@ -16,12 +16,12 @@
 
     <nav class="navbar">
         <div class="nav-left">
-            <a th:href="@{/}"> <span class="logo">NETFLIX</span></a>
+            <a th:href="@{/}"> <span class="logo">METFLIX</span></a>
 
             <div class="edit-Movie">
                 <a th:href="@{/manipulateMovie}">Edit movies</a>
             </div>
-            </div>
+        </div>
         </div>
 
         <div class="nav-center">
@@ -49,90 +49,89 @@
     </nav>
 
     <main class="content">
-        <ul class="movie-list">
+        <ul class="movie-list" th:if="${movies != null and !movies.isEmpty()}">
 
-            <li th:each="movie : ${movies}" th:if="${!movies.isEmpty()}">
+            <li th:each="movie : ${movies}">
+                    <h1 class="title" th:text="${movie.title}"></h1>
 
-                <!-- Title -->
-                <h1 class="title" th:text="${movie.title}"></h1>
 
-                <!-- Image (UNCHANGED as requested) -->
-                <img class="poster" data-tilt style="width:300px; display:none; z-index: -1;">
+                    <img class="poster" data-tilt style="width:300px; display:none; z-index: -1;">
 
-                <!-- Tagline -->
-                <p th:if="${movie.tagline != null}">
-                    <em th:text="${movie.tagline}"></em>
-                </p>
+                    <form th:action="@{/movies/delete}" method="post">
+                        <input type="text" name="movieId" th:value="${movie.movieId}">
+                        <button type="submit">Delete Movie</button>
+                    </form>
+                    <p th:if="${movie.tagline != null}">
+                        <em th:text="${movie.tagline}"></em>
+                    </p>
 
-                <!-- Overview -->
-                <p>
-                    <strong>Overview:</strong>
-                    <span th:text="${movie.overview}"></span>
-                </p>
 
-                <!-- Basic info -->
-                <p><strong>Release date:</strong> <span th:text="${movie.releaseDate}"></span></p>
-                <p><strong>Runtime:</strong> <span th:text="${movie.runtime}"></span> min</p>
-                <p><strong>Status:</strong> <span th:text="${movie.movie_status}"></span></p>
+                    <p>
+                        <strong>Overview:</strong>
+                        <span th:text="${movie.overview}"></span>
+                    </p>
 
-                <!-- Financials -->
-                <p><strong>Budget:</strong> $<span th:text="${movie.budget}"></span></p>
-                <p><strong>Revenue:</strong> $<span th:text="${movie.revenue}"></span></p>
 
-                <!-- Popularity & votes -->
-                <p><strong>Popularity:</strong> <span th:text="${movie.popularity}"></span></p>
-                <p>
-                    <strong>Rating:</strong>
-                    <span th:text="${movie.voteAverage}"></span>
-                    (<span th:text="${movie.voteCount}"></span> votes)
-                </p>
+                    <p><strong>Release date:</strong> <span th:text="${movie.releaseDate}"></span></p>
+                    <p><strong>Runtime:</strong> <span th:text="${movie.runtime}"></span> min</p>
+                    <p><strong>Status:</strong> <span th:text="${movie.movieStatus}"></span></p>
 
-                <!-- Homepage -->
-                <p th:if="${movie.homepage != null}">
-                    <strong>Homepage:</strong>
-                    <a th:href="${movie.homepage}" th:text="${movie.homepage}" target="_blank"></a>
-                </p>
 
-                <!-- Genres -->
-                <p>
-                    <strong>Genres:</strong>
-                    <span th:each="mg, iter : ${movie.genres}">
-                <span th:text="${mg.genre.genreName}"></span>
-                <span th:if="${!iter.last}">, </span>
-            </span>
-                </p>
+                    <p><strong>Budget:</strong> <span th:text="${movie.budget}">$</span></p>
+                    <p><strong>Revenue:</strong> <span th:text="${movie.revenue}">$</span></p>
 
-                <!-- Cast -->
-                <div>
-                    <strong>Cast:</strong>
-                    <ul>
-                        <li th:each="cast : ${movie.cast}">
-                            <span th:text="${cast.person.personName}"></span>
-                            —
-                            <em th:text="${cast.characterName}"></em>
-                        </li>
-                    </ul>
-                </div>
 
-                <!-- Crew -->
-                <div>
-                    <strong>Crew:</strong>
-                    <ul>
-                        <li th:each="crew : ${movie.crew}">
-                            <span th:text="${crew.person.personName}"></span>
-                            (
-                            <span th:text="${crew.department.departmentName}"></span>
-                            –
-                            <span th:text="${crew.job}"></span>
-                            )
-                        </li>
-                    </ul>
-                </div>
+                    <p><strong>Popularity:</strong> <span th:text="${movie.popularity}"></span></p>
+                    <p>
+                        <strong>Rating:</strong>
+                        <span th:text="${movie.voteAverage}"></span>
+                        (<span th:text="${movie.voteCount}"></span> votes)
+                    </p>
 
+
+                    <p th:if="${movie.homepage != null}">
+                        <strong>Homepage:</strong>
+                        <a th:href="${movie.homepage}" th:text="${movie.homepage}" target="_blank"></a>
+                    </p>
+
+
+                    <p>
+                        <strong>Genres:</strong>
+                        <span th:each="mg, iter : ${movie.genres}">
+                            <span th:text="${mg.genre.genreName}"></span>
+                            <span th:if="${!iter.last}">, </span>
+                        </span>
+                    </p>
+
+                    <div id="containerTeams">
+                        <div>
+                            <strong>Cast:</strong>
+                            <ul class="bodyTeams">
+                                <li th:each="cast : ${movie.cast}">
+                                    <span th:text="${cast.person.personName}"></span>
+                                    —
+                                    <em th:text="${cast.characterName}"></em>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                        <div>
+                            <strong>Crew:</strong>
+                            <ul class="bodyTeams">
+                                <li th:each="crew : ${movie.crew}">
+                                    <span th:text="${crew.person.personName}"></span>
+                                    (
+                                    <span th:text="${crew.department.departmentName}"></span>
+                                    –
+                                    <span th:text="${crew.job}"></span>
+                                    )
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
             </li>
-
         </ul>
-
 
     </main>
     <script th:src="@{/js/netflix.js}"></script>

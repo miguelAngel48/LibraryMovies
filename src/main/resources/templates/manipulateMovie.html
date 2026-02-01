@@ -4,35 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Netflix</title>
+    <title>Metflix</title>
     <link rel="stylesheet" th:href="@{/css/netflix.css}">
 </head>
 
 <body>
     <nav class="navbar">
         <div class="nav-left">
-            <a th:href="@{/}"> <span class="logo">NETFLIX</span></a>
+            <a th:href="@{/}"> <span class="logo">METFLIX</span></a>
 
             <div class="edit-Movie">
                 <a th:href="@{/manipulateMovie}">Edit movies</a>
             </div>
         </div>
 
-        <div class="nav-center">
-            <form th:action="@{/menu}" id="form" method="post">
-                <div class="search-wrapper">
-                    <input type="text" id="search" name="search" autocomplete="off">
-                    <ul id="suggestions"></ul>
-                </div>
-                <select name="type" id="searchType">
-                    <option value="PERSON">Actor</option>
-                    <option value="MOVIE">Movie</option>
-                    <option value="DIRECTOR">Director</option>
-                    <option value="CHARACTER">Character</option>
-                    <option value="GENRE">Genre</option>
-                </select>
-            </form>
-        </div>
+
 
 
         <div class="nav-right">
@@ -41,33 +27,16 @@
         </div>
     </nav>
 
-    <main class="content">
-        <form th:action="@{/movies/save}" th:object="${movie}" method="post">
-
-            <input type="hidden" th:field="*{movieId}" />
-
-            <label>Title</label>
-            <input type="text" th:field="*{title}" />
-
-            <label>Overview</label>
-            <textarea th:field="*{overview}"></textarea>
-
-            <label>Release date</label>
-            <input type="date" th:field="*{releaseDate}" />
-
-            <label>Runtime</label>
-            <input type="number" th:field="*{runtime}" />
-
-            <label>Status</label>
-            <input type="text" th:field="*{movie_status}" />
-
-            <label>Budget</label>
-            <input type="number" th:field="*{budget}" />
-
-            <label>Revenue</label>
-            <input type="number" th:field="*{revenue}" />
-            <input type="submit" value="Save">
-        </form>
+    <main class="contentForms">
+        <a th:href="@{/formMovie}"> <span class="formsData">Edit Movie</span></a>
+        <a th:href="@{/formPerson}"> <span class="formsData">Edit Person</span></a>
+        <a th:href="@{/formCountry}"> <span class="formsData">Edit Country</span></a>
+        <a th:href="@{/formDepartment}"> <span class="formsData">Edit department</span></a>
+        <a th:href="@{/formKeyword}"> <span class="formsData">Edit Keywords</span></a>
+        <a th:href="@{/formGenre}"> <span class="formsData">Edit Genres</span></a>
+        <a th:href="@{/formGender}"> <span class="formsData">Edit Gender</span></a>
+        <a th:href="@{/formLanguage}"> <span class="formsData">Edit Language</span></a>
+        <a th:href="@{/formProductionCompany}"> <span class="formsData">Edit Productions companies</span></a>
     </main>
 
 </body>

@@ -4,18 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Netflix</title>
+    <title>Metflix</title>
     <link rel="stylesheet" th:href="@{/css/netflix.css}">
 
-    <!--    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>-->
-    <!--    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>-->
+
 </head>
 
 <body>
 
     <nav class="navbar">
         <div class="nav-left">
-            <a th:href="@{/}"> <span class="logo">NETFLIX</span></a>
+            <a th:href="@{/}"> <span class="logo">METFLIX</span></a>
 
             <div class="edit-Movie">
                 <a th:href="@{/manipulateMovie}">Edit movies</a>
@@ -48,9 +47,9 @@
     </nav>
 
     <main class="content">
-        <ul class="movie-list">
-            <li th:each="movie : ${moviesList}" th:if="${!movie.isEmpty()}">
-                [[${movie.title}]]
+        <p th:if="${error}" th:text="${error}" class="error"></p>
+        <ul th:if="${movies != null and !movies.isEmpty()}">
+            <li th:each="movie : ${movies}" th:text="${movie.title}">
             </li>
         </ul>
 

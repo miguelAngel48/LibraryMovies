@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/netflix.css}">
+    <title>Metflix</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a th:href="@{/}"> <span class="logo">METFLIX</span></a>
+
+            <div class="edit-Movie">
+                <a th:href="@{/manipulateMovie}">Edit movies</a>
+            </div>
+        </div>
+
+        <div class="nav-center">
+            <form th:action="@{/menu}" id="form" method="post">
+                <div class="search-wrapper">
+                    <input type="text" id="search" name="search" autocomplete="off">
+                    <ul id="suggestions"></ul>
+                    <input type="hidden" id="searchType" name="type" value="PRODUCTIONCOMPANY">
+                    <input type="hidden" id="typeForm" value="formProductionCompany">
+                </div>
+
+            </form>
+        </div>
+
+
+        <div class="nav-right">
+            <a href="/login">Login</a>
+            <a href="/register" class="register">Register</a>
+        </div>
+    </nav>
+
+
+    <form th:action="@{/company/save}" th:object="${company}" method="post" class="formDataBase">
+
+        <h1>Production Company</h1>
+
+        <input type="hidden" th:field="*{companyId}" class="formsId" />
+
+        <label>Name</label>
+        <input type="text" th:field="*{companyName}" />
+
+        <input type="submit" th:value="${company.companyId} != null ? 'Update Company' : 'Create Company'">
+    </form>
+
+    <form th:if="${company.companyId != null}" th:action="@{/company/delete}" method="post" class="formDataBase">
+
+        <input type="hidden" name="companyId" th:value="${company.companyId}" />
+
+        <button type="submit" onclick="return confirm('Delete this company?')">
+            Delete
+        </button>
+    </form>
+
+    <script th:src="@{/js/movies.js}"></script>
+</body>
+
+</html>

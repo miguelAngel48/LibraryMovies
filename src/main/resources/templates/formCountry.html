@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/netflix.css}">
+    <title>Metflix</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a th:href="@{/}"> <span class="logo">METFLIX</span></a>
+
+            <div class="edit-Movie">
+                <a th:href="@{/manipulateMovie}">Edit movies</a>
+            </div>
+        </div>
+
+        <div class="nav-center">
+            <form th:action="@{/menu}" id="form" method="post">
+                <div class="search-wrapper">
+                    <input type="text" id="search" name="search" autocomplete="off">
+                    <ul id="suggestions"></ul>
+                    <input type="hidden" id="searchType" name="type" value="COUNTRY">
+                    <input type="hidden" id="typeForm" value="formCountry">
+                </div>
+
+            </form>
+        </div>
+
+
+        <div class="nav-right">
+            <a href="/login">Login</a>
+            <a href="/register" class="register">Register</a>
+        </div>
+    </nav>
+
+    <form th:action="@{/country/save}" th:object="${country}" method="post" class="formDataBase">
+        <h1>Country</h1>
+        <input type="hidden" th:field="*{countryId}" class="formsId" />
+        <label>Name</label>
+        <input type="text" th:field="*{countryName}" />
+
+        <input type="submit" th:value="${country.countryId} != null ? 'Update Country' : 'Create Country'">
+
+
+    </form>
+
+    <form th:if="${country.countryId != null}" th:action="@{/country/delete}" method="post" class="formDataBase">
+
+        <input type="hidden" name="countryId" th:value="${country.countryId}" />
+
+        <button type="submit" onclick="return confirm('Delete this Country?')">
+            Delete
+        </button>
+
+    </form>
+    <script th:src="@{/js/movies.js}"></script>
+
+
+</body>
+
+</html>
