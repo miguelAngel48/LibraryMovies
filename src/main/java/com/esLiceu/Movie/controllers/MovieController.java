@@ -32,7 +32,7 @@ public class MovieController {
     @PostMapping("/menu")
     public String menuSearch(Model model, @RequestParam String search,@RequestParam(required = false) Integer movieId, @RequestParam MoviesStock.SearchType type) {
         if(movieId == null){
-            model.addAttribute("error", "Película no encontrada");
+            model.addAttribute("error", "Nothing here, try something else");
             model.addAttribute("moviesList", List.of());
             return "menu";
         }

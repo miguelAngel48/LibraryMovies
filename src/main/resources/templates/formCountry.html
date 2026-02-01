@@ -31,9 +31,14 @@
         </div>
 
 
-        <div class="nav-right">
-            <a href="/login">Login</a>
-            <a href="/register" class="register">Register</a>
+        <div class="nav-right" th:if="${session.user == null}">
+            <a href="#" id="openLogin">Login</a>
+            <a href="#" id="openRegister" class="register">Register</a>
+        </div>
+
+        <div class="nav-right" th:if="${session.user != null}">
+            <span th:text="${session.user}"></span>
+            <a th:href="@{/logout}" class="register">Logout</a>
         </div>
     </nav>
 
@@ -48,7 +53,7 @@
 
     </form>
 
-    <form th:if="${country.countryId != null}" th:action="@{/country/delete}" method="post" class="formDataBase">
+    <form th:if="${country.countryId != null}" th:action="@{/country/delete}" method="post" class="formDataBase ">
 
         <input type="hidden" name="countryId" th:value="${country.countryId}" />
 

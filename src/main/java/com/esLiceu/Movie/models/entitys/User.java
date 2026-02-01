@@ -15,14 +15,14 @@ public class User {
 
     String password;
 
-    String gmail;
+    String email;
 
-    public String getGmail() {
-        return gmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setGmail(String gmail) {
-        this.gmail = gmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

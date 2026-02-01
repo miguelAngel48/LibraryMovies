@@ -42,9 +42,15 @@
         </div>
 
 
-        <div class="nav-right">
-            <a href="/login">Login</a>
-            <a href="/register" class="register">Register</a>
+
+        <div class="nav-right" th:if="${session.user == null}">
+            <a href="#" id="openLogin">Login</a>
+            <a href="#" id="openRegister" class="register">Register</a>
+        </div>
+
+        <div class="nav-right" th:if="${session.user != null}">
+            <span th:text="${session.user}"></span>
+            <a th:href="@{/logout}" class="register">Logout</a>
         </div>
     </nav>
 
@@ -52,90 +58,131 @@
         <ul class="movie-list" th:if="${movies != null and !movies.isEmpty()}">
 
             <li th:each="movie : ${movies}">
-                    <h1 class="title" th:text="${movie.title}"></h1>
+                <h1 class="title" th:text="${movie.title}"></h1>
 
 
-                    <img class="poster" data-tilt style="width:300px; display:none; z-index: -1;">
+                <img class="poster" data-tilt style="width:300px; display:none; z-index: -1;">
 
-                    <form th:action="@{/movies/delete}" method="post">
-                        <input type="text" name="movieId" th:value="${movie.movieId}">
-                        <button type="submit">Delete Movie</button>
-                    </form>
-                    <p th:if="${movie.tagline != null}">
-                        <em th:text="${movie.tagline}"></em>
-                    </p>
-
-
-                    <p>
-                        <strong>Overview:</strong>
-                        <span th:text="${movie.overview}"></span>
-                    </p>
+                <form th:action="@{/movies/delete}" method="post">
+                    <input type="text" name="movieId" th:value="${movie.movieId}">
+                    <button type="submit">Delete Movie</button>
+                </form>
+                <p th:if="${movie.tagline != null}">
+                    <em th:text="${movie.tagline}"></em>
+                </p>
 
 
-                    <p><strong>Release date:</strong> <span th:text="${movie.releaseDate}"></span></p>
-                    <p><strong>Runtime:</strong> <span th:text="${movie.runtime}"></span> min</p>
-                    <p><strong>Status:</strong> <span th:text="${movie.movieStatus}"></span></p>
+                <p>
+                    <strong>Overview:</strong>
+                    <span th:text="${movie.overview}"></span>
+                </p>
 
 
-                    <p><strong>Budget:</strong> <span th:text="${movie.budget}">$</span></p>
-                    <p><strong>Revenue:</strong> <span th:text="${movie.revenue}">$</span></p>
+                <p><strong>Release date:</strong> <span th:text="${movie.releaseDate}"></span></p>
+                <p><strong>Runtime:</strong> <span th:text="${movie.runtime}"></span> min</p>
+                <p><strong>Status:</strong> <span th:text="${movie.movieStatus}"></span></p>
 
 
-                    <p><strong>Popularity:</strong> <span th:text="${movie.popularity}"></span></p>
-                    <p>
-                        <strong>Rating:</strong>
-                        <span th:text="${movie.voteAverage}"></span>
-                        (<span th:text="${movie.voteCount}"></span> votes)
-                    </p>
+                <p><strong>Budget:</strong> <span th:text="${movie.budget}">$</span></p>
+                <p><strong>Revenue:</strong> <span th:text="${movie.revenue}">$</span></p>
 
 
-                    <p th:if="${movie.homepage != null}">
-                        <strong>Homepage:</strong>
-                        <a th:href="${movie.homepage}" th:text="${movie.homepage}" target="_blank"></a>
-                    </p>
+                <p><strong>Popularity:</strong> <span th:text="${movie.popularity}"></span></p>
+                <p>
+                    <strong>Rating:</strong>
+                    <span th:text="${movie.voteAverage}"></span>
+                    (<span th:text="${movie.voteCount}"></span> votes)
+                </p>
 
 
-                    <p>
-                        <strong>Genres:</strong>
-                        <span th:each="mg, iter : ${movie.genres}">
-                            <span th:text="${mg.genre.genreName}"></span>
-                            <span th:if="${!iter.last}">, </span>
-                        </span>
-                    </p>
-
-                    <div id="containerTeams">
-                        <div>
-                            <strong>Cast:</strong>
-                            <ul class="bodyTeams">
-                                <li th:each="cast : ${movie.cast}">
-                                    <span th:text="${cast.person.personName}"></span>
-                                    —
-                                    <em th:text="${cast.characterName}"></em>
-                                </li>
-                            </ul>
-                        </div>
+                <p th:if="${movie.homepage != null}">
+                    <strong>Homepage:</strong>
+                    <a th:href="${movie.homepage}" th:text="${movie.homepage}" target="_blank"></a>
+                </p>
 
 
-                        <div>
-                            <strong>Crew:</strong>
-                            <ul class="bodyTeams">
-                                <li th:each="crew : ${movie.crew}">
-                                    <span th:text="${crew.person.personName}"></span>
-                                    (
-                                    <span th:text="${crew.department.departmentName}"></span>
-                                    –
-                                    <span th:text="${crew.job}"></span>
-                                    )
-                                </li>
-                            </ul>
-                        </div>
+                <p>
+                    <strong>Genres:</strong>
+                    <span th:each="mg, iter : ${movie.genres}">
+                        <span th:text="${mg.genre.genreName}"></span>
+                        <span th:if="${!iter.last}">, </span>
+                    </span>
+                </p>
+
+                <div id="containerTeams">
+                    <div>
+                        <strong>Cast:</strong>
+                        <ul class="bodyTeams">
+                            <li th:each="cast : ${movie.cast}">
+                                <span th:text="${cast.person.personName}"></span>
+                                —
+                                <em th:text="${cast.characterName}"></em>
+                            </li>
+                        </ul>
                     </div>
+
+
+                    <div>
+                        <strong>Crew:</strong>
+                        <ul class="bodyTeams">
+                            <li th:each="crew : ${movie.crew}">
+                                <span th:text="${crew.person.personName}"></span>
+                                (
+                                <span th:text="${crew.department.departmentName}"></span>
+                                –
+                                <span th:text="${crew.job}"></span>
+                                )
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </li>
         </ul>
 
     </main>
+    <!-- login -->
+    <div id="loginModal" class="modal">
+        <div class="modal-box">
+
+            <span class="close" data-close="loginModal">&times;</span>
+
+            <h2>Login</h2>
+
+            <form th:action="@{/login}" method="post">
+
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+
+                <button type="submit">Login</button>
+
+            </form>
+        </div>
+    </div>
+    <!-- registro -->
+    <div id="registerModal" class="modal">
+        <div class="modal-box">
+
+            <span class="close" data-close="registerModal">&times;</span>
+
+            <h2>Register</h2>
+
+            <form th:action="@{/register}" method="post">
+
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="passwordCheck" placeholder="Password" required>
+
+
+                <button type="submit">Create account</button>
+
+            </form>
+        </div>
+    </div>
+
     <script th:src="@{/js/netflix.js}"></script>
     <script th:src="@{/js/image.js}"></script>
+    <script th:src="@{/js/modal.js}"></script>
 </body>
 
 </html>

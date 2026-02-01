@@ -36,21 +36,10 @@ public class CastController {
     public String saveCast(
             @RequestParam Integer movieId,
             @RequestParam Integer personId,
-            @RequestParam String characterName,
-            @RequestParam Integer castOrder) {
+            @RequestParam String characterName
+            ) {
 
-        MovieCast cast = new MovieCast();
-        MovieCastId id = new MovieCastId();
-        id.setMovieId(movieId);
-        id.setPersonId(personId);
-        cast.setId(id);
-
-        cast.setMovie(movieService.findMovieById(movieId));
-        cast.setPerson(personService.findById(personId));
-
-        cast.setCharacterName(characterName);
-        cast.setCastOrder(castOrder);
-
+        MovieCast cast = castService.getCast(movieId, personId, characterName);
         castService.save(cast);
 
         return "redirect:/formCast?movieId=" + movieId;
@@ -61,11 +50,7 @@ public class CastController {
     public String deleteCast(
             @RequestParam Integer movieId,
             @RequestParam Integer personId) {
-
-        MovieCastId id = new MovieCastId();
-        id.setMovieId(movieId);
-        id.setPersonId(personId);
-
+        MovieCastId id = castService.getCastId(movieId, personId);
         castService.delete(id);
 
         return "redirect:/formCast?movieId=" + movieId;

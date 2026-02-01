@@ -45,17 +45,7 @@ search.addEventListener('input', async () => {
             suggestions.style.display = "none";
         }, 150);
     });
-    search.addEventListener("keydown", (e) => {
 
-        if (e.key === "Enter") {
-            e.preventDefault();
-
-            const first = suggestions.querySelector("li");
-
-            if (first) first.click();
-        }
-
-    });
 
 })
 
