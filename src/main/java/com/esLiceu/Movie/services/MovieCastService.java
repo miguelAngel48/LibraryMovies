@@ -41,11 +41,12 @@ public class MovieCastService {
     public MovieCast getCast(Integer movieId, Integer personId, String characterName) {
         MovieCast cast = new MovieCast();
         MovieCastId id = getCastId(movieId, personId);
+        cast.setId(id);
         cast.setMovie(movieService.findMovieById(movieId));
         cast.setPerson(personService.findById(personId));
         cast.setCharacterName(characterName);
 
-        cast.setId(id);
+
         return cast;
     }
 

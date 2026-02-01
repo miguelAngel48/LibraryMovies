@@ -209,6 +209,11 @@ a {
     text-decoration: none;
 }
 
+.editButon {
+    color: #ffffff;
+    text-decoration: none;
+}
+
 .personSearch {
     display: none;
     color: #000;
